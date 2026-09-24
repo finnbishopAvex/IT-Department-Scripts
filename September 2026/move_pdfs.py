@@ -1,28 +1,21 @@
 """Move all PDF files from a source directory tree into a destination directory."""
-import argparse
 import os
 import shutil
 import sys
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Recursively move all .pdf files from SOURCE (and its subfolders) into DESTINATION.")
-    parser.add_argument("-s", "--source", required=True, help="base directory to search for PDFs")
-    parser.add_argument("-d", "--destination", required=True, help="directory to move PDFs into")
-    args = parser.parse_args()
-
-    for label, path in (("Source", args.source), ("Destination", args.destination)):
-        if not os.path.isdir(path):
-            sys.exit(f"Error: {label} directory does not exist: {path}")
+    cwd = os.getcwd() 
+    os.mkdir(os.path.join(cwd, "moved_pdfs"))
+    destination = os.path.join(cwd, "moved_pdfs")
 
     moved = 0
-    for root, _, files in os.walk(args.source):
+    for root, _, files in os.walk():
         for name in files:
             if not name.lower().endswith(".pdf"):
                 continue
             src = os.path.join(root, name)
-            dst = os.path.join(args.destination, name)
+            dst = os.path.join(destination, name)
             if os.path.exists(dst):
                 print(f"Skipped (already exists): {dst}")
                 continue

@@ -1,13 +1,11 @@
 """Move all PDF files from a source directory tree into a destination directory."""
 import os
 import shutil
-import sys
-
 
 def main():
     cwd = os.getcwd() 
-    os.mkdir(os.path.join(cwd, "moved_pdfs"))
-    destination = os.path.join(cwd, "moved_pdfs")
+    destination = os.path.dirname(os.path.abspath(__file__))
+    os.makedirs(destination, exist_ok=True)
 
     moved = 0
     for root, _, files in os.walk(cwd):

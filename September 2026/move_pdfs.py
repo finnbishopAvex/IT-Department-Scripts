@@ -10,7 +10,7 @@ def main():
     destination = os.path.join(cwd, "moved_pdfs")
 
     moved = 0
-    for root, _, files in os.walk():
+    for root, _, files in os.walk(cwd):
         for name in files:
             if not name.lower().endswith(".pdf"):
                 continue
@@ -20,7 +20,7 @@ def main():
                 print(f"Skipped (already exists): {dst}")
                 continue
             shutil.move(src, dst)
-            print(f"Moved: {src} -> {dst}")
+            print(f"Moved: {name}")
             moved += 1
 
     print(f"Done. {moved} PDF(s) moved.")
